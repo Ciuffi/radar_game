@@ -335,7 +335,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 20
   drag: 0.1
-  jumpspeed: 20
+  jumpspeed: 5
 --- !u!1 &1624041215
 GameObject:
   m_ObjectHideFlags: 0
