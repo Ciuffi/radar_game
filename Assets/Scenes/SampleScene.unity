@@ -333,11 +333,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fa6ce4c58f02f04c914f975603076ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HorizontalSpeed: 0
-  JumpHeight: 0.5
-  myState: 0
-  HorizontalDrag: 0
-  jumpspeed: 1
+  HorizontalSpeed: 20
+  HorizontalDrag: 0.1
+  JumpForce: 5
 --- !u!1 &1624041215
 GameObject:
   m_ObjectHideFlags: 0
