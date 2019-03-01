@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 enum PlayerState { Idle, Jumping, Falling };
-
+enum moveState { Idle, Moving};
 public class movement : MonoBehaviour
 {
     private Rigidbody2D rb2d;
@@ -11,6 +11,7 @@ public class movement : MonoBehaviour
     private float jumpTime = 0.5f;
     private PlayerState myState;
     
+    private moveState myMoveState;
 
     public float drag;
 
@@ -25,15 +26,24 @@ public class movement : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision){
         jumpTime = 0.5f;
         myState = PlayerState.Idle;
+        myMoveState = moveState.Idle;
     }
 
     void FixedUpdate(){
-        float moveHorizontal = Input.GetAxis ("Horizontal");
-    
-        Vector2 vel = new Vector2 (moveHorizontal * speed, rb2d.velocity.y);
-        vel.x *= 1.0f - drag;
-        vel.y *= 1.0f - drag;
-
+        float moveHorizontal = Input.GetAxisRaw("Horizontal");
+        Vector2 vel;
+        if(rb2d.velocity.x == 0 ){
+            myMoveState = moveState.Idle;
+        }
+        if (moveHorizontal > 0 || moveHorizontal < 0){
+            myMoveState = moveState.Moving;
+            vel = new Vector2 (moveHorizontal * speed, rb2d.velocity.y);
+        }else if (myMoveState == moveState.Moving) {
+            vel = new Vector2 (rb2d.velocity.x *  1.0f - drag, rb2d.velocity.y);
+        }else{
+            vel = new Vector2 (moveHorizontal * speed, rb2d.velocity.y);
+        }
+        
         rb2d.velocity = vel;
         // Farther away from the ground you are, the less push it has
         // To a limit
